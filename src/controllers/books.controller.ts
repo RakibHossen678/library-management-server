@@ -39,3 +39,40 @@ booksRoutes.get("/", async (req: Request, res: Response) => {
     data: books,
   });
 });
+
+// get a single book
+booksRoutes.get("/:bookId", async (req: Request, res: Response) => {
+  const bookId = req.params.bookId;
+  const book = await Book.findById(bookId);
+
+  res.status(200).json({
+    success: true,
+    message: "Book retrieved successfully",
+    data: book,
+  });
+});
+
+// update a book
+booksRoutes.put("/:bookId", async (req: Request, res: Response) => {
+  const bookId = req.params.bookId;
+  const bookData = req.body;
+
+  const book = await Book.findByIdAndUpdate(bookId, bookData, { new: true });
+
+  res.status(200).json({
+    success: true,
+    message: "Book updated successfully",
+    data: book,
+  });
+});
+
+// delete a book
+booksRoutes.delete("/:bookId", async (req: Request, res: Response) => {
+  const bookId = req.params.bookId;
+  await Book.findByIdAndDelete(bookId);
+  res.status(200).json({
+    success: true,
+    message: "Book deleted successfully",
+    data: null,
+  });
+});
