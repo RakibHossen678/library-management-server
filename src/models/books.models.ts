@@ -39,7 +39,7 @@ const bookSchema = new Schema<IBooks>(
     copies: {
       type: Number,
       required: [true, "Number of copies is required"],
-      min: [1, "At least one copy must be available"],
+      min: [0, "Copies must be a positive number"],
     },
     available: {
       type: Boolean,
@@ -50,6 +50,5 @@ const bookSchema = new Schema<IBooks>(
     timestamps: true,
   }
 );
-
 
 export const Book = model<IBooks>("Book", bookSchema);
