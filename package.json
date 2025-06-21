@@ -1,9 +1,30 @@
 {
+  "name": "assignment-3",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node-dev --respawn --transpile-only src/server.ts",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RakibHossen678/L2-Assignment3.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/RakibHossen678/L2-Assignment3/issues"
+  },
+  "homepage": "https://github.com/RakibHossen678/L2-Assignment3#readme",
   "dependencies": {
     "express": "^5.1.0",
     "mongoose": "^8.16.0"
   },
   "devDependencies": {
+    "@types/express": "^5.0.3",
     "ts-node-dev": "^2.0.0"
   }
 }
