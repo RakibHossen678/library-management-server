@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
-import { IBooks } from "../interface/books.interface";
+import { model, Model, Schema } from "mongoose";
+import { bookMethods, IBooks } from "../interface/books.interface";
 
-const bookSchema = new Schema<IBooks>(
+const bookSchema = new Schema<IBooks, Model<IBooks>, bookMethods>(
   {
     title: {
       type: String,
@@ -50,5 +50,10 @@ const bookSchema = new Schema<IBooks>(
     timestamps: true,
   }
 );
+
+bookSchema.method("updateBookAvailabilityStatus", async function () {
+  this.available = this.copies > 0 ? true : false;
+  await this.save();
+});
 
 export const Book = model<IBooks>("Book", bookSchema);
