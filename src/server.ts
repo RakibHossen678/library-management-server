@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 7000;
 async function main() {
   try {
     await mongoose.connect(
-      ``
+      `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@cluster0.nbqp0.mongodb.net/libraryManagement?retryWrites=true&w=majority&appName=Cluster0`
     );
     console.log("Connected to MongoDB");
     server = app.listen(PORT, () => {
