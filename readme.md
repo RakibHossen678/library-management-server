@@ -7,7 +7,6 @@ A simple Node.js + Express + MongoDB library management system.
 - Add, update, delete, and fetch books
 - Borrow books and track borrowed quantities
 - View summary of borrowed books
-- RESTful API endpoints
 
 ## Project Structure
 
@@ -72,8 +71,3 @@ A simple Node.js + Express + MongoDB library management system.
 - `POST /api/borrow` - Borrow a book
 - `GET /api/borrow` - Get summary of borrowed books
 
-## Deployment
-
-This project is configured for deployment on Vercel using [vercel.json](vercel.json).
-
-## License
