@@ -1,5 +1,13 @@
 # Library Management System
 
+**GitHub Repository:**  
+[https://github.com/RakibHossen678/L2-Assignment3](https://github.com/RakibHossen678/L2-Assignment3)
+
+**Clone this repository:**
+```sh
+git clone https://github.com/RakibHossen678/L2-Assignment3.git
+```
+
 A simple Node.js + Express + MongoDB library management system.
 
 ## Features
@@ -70,4 +78,3 @@ A simple Node.js + Express + MongoDB library management system.
 
 - `POST /api/borrow` - Borrow a book
 - `GET /api/borrow` - Get summary of borrowed books
-
