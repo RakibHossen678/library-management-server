@@ -1,8 +1,14 @@
-import express, { Application, Request, Response } from "express";
-import { booksRoutes } from "./controllers/books.controller";
+import express, {
+  Application,
+  ErrorRequestHandler,
+  NextFunction,
+  Request,
+  Response,
+} from "express";
 
 import dotenv from "dotenv";
-import { borrowRoutes } from "./controllers/borrow.controller";
+import { booksRoutes } from "./app/controllers/books.controller";
+import { borrowRoutes } from "./app/controllers/borrow.controller";
 
 dotenv.config();
 
@@ -16,5 +22,28 @@ app.use("/api/borrow", borrowRoutes);
 app.get("/", (req: Request, res: Response) => {
   res.send("Welcome to the library management system!");
 });
+
+const globalErrorHandler = (
+  error: any,
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  if (error.name === "ValidationError") {
+    return res.status(400).json({
+      success: false,
+      message: "Validation failed",
+      error: error,
+    });
+  }
+
+  res.status(error.statusCode || 500).json({
+    message: error.message || "Internal Server Error",
+    success: false,
+    error: error,
+  });
+};
+
+app.use(globalErrorHandler as ErrorRequestHandler);
 
 export default app;

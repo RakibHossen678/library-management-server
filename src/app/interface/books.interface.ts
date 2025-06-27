@@ -16,6 +16,6 @@ export interface IBooks {
   available: boolean;
 }
 
-export interface bookMethods {
+export interface BookIntanceMethods {
   updateBookAvailabilityStatus(): Promise<void>;
 }

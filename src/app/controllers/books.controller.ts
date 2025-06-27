@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Book } from "../models/books.models";
+import { appError } from "../../utils/appError";
 
 export const booksRoutes = express.Router();
 
@@ -16,32 +17,30 @@ booksRoutes.post(
         !bookData.isbn ||
         !bookData.copies
       ) {
-        res.status(400).json({
-          success: false,
-          message: "Validation failed",
-          error:
-            "Title, author, genre, ISBN, and number of copies are required",
-        });
-        return;
+        return appError(
+          res,
+          "Validation failed",
+          "All fields are required",
+          400
+        );
       }
       if (bookData.copies < 0) {
-        res.status(400).json({
-          success: false,
-          message: "Validation failed",
-          error: "Number of copies must be a positive number",
-        });
-        return;
+        return appError(
+          res,
+          "Validation failed",
+          "Copies must be greater than 0"
+        );
       }
 
       const book = await Book.create(bookData);
 
       if (!book) {
-        res.status(500).json({
-          success: false,
-          message: "Failed to create book",
-          error: "Internal server error",
-        });
-        return;
+        return appError(
+          res,
+          "Book creation failed",
+          "Failed to create book",
+          500
+        );
       }
 
       res.status(201).json({
@@ -76,11 +75,7 @@ booksRoutes.get(
         .limit(limit);
 
       if (!books || books.length === 0) {
-        res.status(404).json({
-          success: false,
-          message: "No books found",
-          error: "No books match the specified criteria",
-        });
+        appError(res, "No books found", "No books found", 404);
       }
 
       res.status(200).json({
@@ -102,21 +97,23 @@ booksRoutes.get(
       const bookId = req.params.bookId;
 
       if (!bookId) {
-        res.status(400).json({
-          success: false,
-          message: "Validation failed",
-          error: "Book ID is required to retrieve a book",
-        });
+        return appError(
+          res,
+          "Validation failed",
+          "Book ID is required to get a book",
+          400
+        );
       }
 
       const book = await Book.findById(bookId);
 
       if (!book) {
-        res.status(404).json({
-          success: false,
-          message: "Book not found",
-          error: "No book found with the specified ID",
-        });
+        return appError(
+          res,
+          "Book not found",
+          "No book found with this ID",
+          404
+        );
       }
 
       res.status(200).json({
@@ -137,20 +134,22 @@ booksRoutes.put(
     try {
       const bookId = req.params.bookId;
       if (!bookId) {
-        res.status(400).json({
-          success: false,
-          message: "Validation failed",
-          error: "Book ID is required to update a book",
-        });
+        return appError(
+          res,
+          "Validation failed",
+          "Book ID is required to update a book",
+          400
+        );
       }
       const bookData = req.body;
 
       if (!bookData) {
-        res.status(400).json({
-          success: false,
-          message: "Validation failed",
-          error: "Book data is required to update a book",
-        });
+        return appError(
+          res,
+          "Validation failed",
+          "Book data is required to update a book",
+          400
+        );
       }
 
       const book = await Book.findByIdAndUpdate(bookId, bookData, {
@@ -158,11 +157,12 @@ booksRoutes.put(
       });
 
       if (!book) {
-        res.status(404).json({
-          success: false,
-          message: "Book not found",
-          error: "No book found with the specified ID",
-        });
+        return appError(
+          res,
+          "Book not found",
+          "No book found with this ID",
+          404
+        );
       }
 
       res.status(200).json({
@@ -184,21 +184,23 @@ booksRoutes.delete(
       const bookId = req.params.bookId;
 
       if (!bookId) {
-        res.status(400).json({
-          success: false,
-          message: "Validation failed",
-          error: "Book ID is required to delete a book",
-        });
+        return appError(
+          res,
+          "Validation failed",
+          "Book ID is required to delete a book",
+          400
+        );
       }
 
       const book = await Book.findByIdAndDelete(bookId);
 
       if (!book) {
-        res.status(404).json({
-          success: false,
-          message: "Book not found",
-          error: "No book found with the specified ID",
-        });
+        return appError(
+          res,
+          "Book not found",
+          "No book found with this ID",
+          404
+        );
       }
 
       res.status(200).json({

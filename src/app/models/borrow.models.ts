@@ -24,12 +24,12 @@ const borrowSchema = new Schema<IBorrow>(
   }
 );
 
-// borrowSchema.post("save", async function (doc) {
-//   const book = await Book.findById(doc.book);
-//   if (book) {
-//     book.copies -= doc.quantity;
-//     await updateBookAvailabilityStatus(book);
-//   }
-// });
+borrowSchema.post("save", async function (doc) {
+  const book = await Book.findById(doc.book);
+  if (book) {
+    book.copies -= doc.quantity;
+    await book.updateBookAvailabilityStatus();
+  }
+});
 
 export const Borrow = model<IBorrow>("Borrow", borrowSchema);

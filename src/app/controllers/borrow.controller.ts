@@ -1,6 +1,7 @@
 import express, { NextFunction, Request, Response } from "express";
 import { Book } from "../models/books.models";
 import { Borrow } from "../models/borrow.models";
+import { appError } from "../../utils/appError";
 
 export const borrowRoutes = express.Router();
 
@@ -11,31 +12,31 @@ borrowRoutes.post(
     try {
       const { book, quantity, dueDate } = req.body;
       if (!dueDate || !quantity || !book) {
-        res.status(400).json({
-          success: false,
-          message: "Validation failed",
-          error: "Due date, quantity, and book ID are required",
-        });
-        return;
+        return appError(
+          res,
+          "Validation failed",
+          "All fields are required",
+          400
+        );
       }
 
       const findBook = await Book.findById(book);
       if (!findBook) {
-        res.status(404).json({
-          success: false,
-          message: "Book not found",
-          error: "No book found with this ID",
-        });
-        return;
+        return appError(
+          res,
+          "Book not found",
+          "No book found with this ID",
+          404
+        );
       }
 
       if (findBook.copies < quantity) {
-        res.status(400).json({
-          success: false,
-          message: "Insufficient quantity",
-          error: "Not enough copies of the book available",
-        });
-        return;
+        return appError(
+          res,
+          "Validation failed",
+          "Not enough copies available",
+          400
+        );
       }
 
       const borrow = await Borrow.create(req.body);
