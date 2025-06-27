@@ -53,7 +53,6 @@ borrowRoutes.post(
 );
 
 // borrowed book summary
-
 borrowRoutes.get(
   "/",
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
