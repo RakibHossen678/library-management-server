@@ -15,21 +15,12 @@ dotenv.config();
 
 const app: Application = express();
 
-const allowedOrigins = [
-  "http://localhost:5173",
-  "https://library-management-six-sigma.vercel.app",
-];
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
-    credentials: true,
+    origin: [
+      "http://localhost:5173",
+      "https://library-management-six-sigma.vercel.app",
+    ],
   })
 );
 
