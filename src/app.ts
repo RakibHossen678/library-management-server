@@ -17,7 +17,7 @@ const app: Application = express();
 
 const allowedOrigins = [
   "http://localhost:5173",
-  // 'https://your-vercel-frontend.vercel.app',
+  "https://library-management-six-sigma.vercel.app",
 ];
 
 app.use(
