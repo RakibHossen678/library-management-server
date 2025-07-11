@@ -20,6 +20,7 @@ app.use(
     origin: [
       "http://localhost:5173",
       "https://library-management-six-sigma.vercel.app",
+      "https://l2-assignment3-beta.vercel.app",
     ],
     credentials: true,
     methods: ["GET", "POST", "PUT", "DELETE"],
