@@ -15,14 +15,7 @@ dotenv.config();
 
 const app: Application = express();
 
-app.use(
-  cors({
-    origin: [
-      "http://localhost:5173",
-      "https://library-management-six-sigma.vercel.app",
-    ],
-  })
-);
+app.use(cors());
 
 app.use(express.json());
 
