@@ -10,6 +10,7 @@ booksRoutes.post(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const bookData = req.body;
+      console.log(bookData);
       if (
         !bookData.title ||
         !bookData.author ||
@@ -72,7 +73,7 @@ booksRoutes.get(
 
       const books = await Book.find(query)
         .sort({ [sortBy as string]: sort })
-        .limit(limit);
+        // .limit(limit);
 
       if (!books || books.length === 0) {
         appError(res, "No books found", "No books found", 404);

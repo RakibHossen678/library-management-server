@@ -5,14 +5,18 @@ import express, {
   Request,
   Response,
 } from "express";
+import cors from "cors";
 
 import dotenv from "dotenv";
 import { booksRoutes } from "./app/controllers/books.controller";
 import { borrowRoutes } from "./app/controllers/borrow.controller";
 
+
 dotenv.config();
 
 const app: Application = express();
+
+app.use(cors());
 
 app.use(express.json());
 
