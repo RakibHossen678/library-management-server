@@ -21,6 +21,7 @@ exports.booksRoutes = express_1.default.Router();
 exports.booksRoutes.post("/", (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const bookData = req.body;
+        console.log(bookData);
         if (!bookData.title ||
             !bookData.author ||
             !bookData.genre ||
@@ -57,8 +58,8 @@ exports.booksRoutes.get("/", (req, res, next) => __awaiter(void 0, void 0, void 
             query.genre = filter;
         }
         const books = yield books_models_1.Book.find(query)
-            .sort({ [sortBy]: sort })
-            .limit(limit);
+            .sort({ [sortBy]: sort });
+        // .limit(limit);
         if (!books || books.length === 0) {
             (0, appError_1.appError)(res, "No books found", "No books found", 404);
         }
