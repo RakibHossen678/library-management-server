@@ -10,11 +10,7 @@ const books_controller_1 = require("./app/controllers/books.controller");
 const borrow_controller_1 = require("./app/controllers/borrow.controller");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({
-    origin: true,
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-}));
+app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use("/api/books", books_controller_1.booksRoutes);
 app.use("/api/borrow", borrow_controller_1.borrowRoutes);
