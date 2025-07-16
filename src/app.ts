@@ -15,7 +15,22 @@ dotenv.config();
 
 const app: Application = express();
 
-app.use(cors());
+// Enhanced CORS configuration
+app.use(
+  cors({
+    origin: [
+      "https://library-management-six-sigma.vercel.app",
+      "http://localhost:3000",
+      "http://localhost:5173",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
+
+// Handle preflight requests
+app.options("*", cors());
 
 app.use(express.json());
 
