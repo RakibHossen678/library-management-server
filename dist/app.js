@@ -10,7 +10,19 @@ const books_controller_1 = require("./app/controllers/books.controller");
 const borrow_controller_1 = require("./app/controllers/borrow.controller");
 dotenv_1.default.config();
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)());
+// Enhanced CORS configuration
+app.use((0, cors_1.default)({
+    origin: [
+        "https://library-management-six-sigma.vercel.app",
+        "http://localhost:3000",
+        "http://localhost:5173",
+    ],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+}));
+// Handle preflight requests
+app.options("*", (0, cors_1.default)());
 app.use(express_1.default.json());
 app.use("/api/books", books_controller_1.booksRoutes);
 app.use("/api/borrow", borrow_controller_1.borrowRoutes);
