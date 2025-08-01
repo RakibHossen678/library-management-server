@@ -11,7 +11,7 @@ borrowRoutes.post(
   async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const { book, quantity, dueDate } = req.body;
-    
+
       if (!dueDate || !quantity || !book) {
         return appError(
           res,
